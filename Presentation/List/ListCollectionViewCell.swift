@@ -9,7 +9,11 @@
 import UIKit
 
 
+let cellCornerRadius: CGFloat = 20
+
+
 final class ListCollectionViewCell: UICollectionViewCell {
+
 
     static let identifier = "ListCell"
 
@@ -42,7 +46,7 @@ final class ListCollectionViewCell: UICollectionViewCell {
 
     func render(element: ListElement) {
         backgroundColor = .blue
-        layer.cornerRadius = 20
+        layer.cornerRadius = cellCornerRadius
         layer.showShadowForCell()
         nameLabel.text = element.title
     }

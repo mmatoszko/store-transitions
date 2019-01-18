@@ -17,6 +17,8 @@ class ListViewController: UIViewController {
 
     private var listDelegate: ListDelegate?
 
+    var transition: StoreTransition?
+
     init() {
         let flowLayout = UICollectionViewFlowLayout()
         collectionView = ListCollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -39,28 +41,46 @@ class ListViewController: UIViewController {
     private func prepareListCollectionView(collectionView: ListCollectionView) {
         dataSource = ListDataSource()
         listDelegate = ListDelegate(cellSelectionCallback: { [weak self] indexPath in
-            guard let element = self?.dataSource?.elements[indexPath.row] else {
-                assertionFailure("can't get selected element")
-                return
-            }
-            let viewController = DetailViewController()
-            self?.present(viewController, animated: true, completion: nil)
-            print(element)
+            self?.showElement(at: indexPath)
         })
         collectionView.dataSource = dataSource
         collectionView.delegate = listDelegate
         collectionView.backgroundColor = .green
     }
 
-    func showData(in collectionView: ListCollectionView) {
+    private func showElement(at indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ListCollectionViewCell,
+            let currentCellFrame = cell.layer.presentation()?.frame,
+            let absoluteFrame = cell.superview?.convert(currentCellFrame, to: nil) else {
+                return
+        }
+
+        guard let element = dataSource?.elements[indexPath.row] else {
+            return
+        }
+        let viewController = DetailViewController(element: element)
+
+        let cellInformation = StoreTransition.CellInformation(absoluteCellFrame: absoluteFrame, cell: cell)
+        let transition = StoreTransition(cellInformation: cellInformation)
+        viewController.transitioningDelegate = transition
+
+        viewController.modalPresentationStyle = .custom
+
+        self.transition = transition
+
+        self.present(viewController, animated: true, completion: nil)
+    }
+
+    private func showData(in collectionView: ListCollectionView) {
         let elements: [ListElement] = [
             ListElement(imageName: "", title: "", subtitle: "", description: ""),
-            ListElement(imageName: "", title: "", subtitle: "", description: "")
+            ListElement(imageName: "", title: "", subtitle: "", description: ""),
+            ListElement(imageName: "", title: "", subtitle: "", description: ""),
         ]
         showElements(elements: elements, in: collectionView)
     }
 
-    func showElements(elements: [ListElement], in collectionView: ListCollectionView) {
+    private func showElements(elements: [ListElement], in collectionView: ListCollectionView) {
         dataSource?.elements = elements
         collectionView.reloadData()
     }

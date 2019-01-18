@@ -11,7 +11,10 @@ import UIKit
 
 final class DetailViewController: UIViewController {
 
-    init() {
+    private let element: ListElement
+
+    init(element: ListElement) {
+        self.element = element
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -26,29 +29,20 @@ final class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addCloseButton()
+        addCloseButtonAction()
     }
 
-    private func addCloseButton() {
-        let button = createCloseButton(with: "close")
-        button.addTarget(self, action: #selector(close), for: .touchUpInside)
-        self.view.addSubview(button)
-        button.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
-        view.rightAnchor.constraint(equalTo: button.rightAnchor, constant: 20).isActive = true
+    private func addCloseButtonAction() {
+        guard let detailView = viewIfLoaded as? DetailView,
+            let closeButton = detailView.closeButton else {
+            assertionFailure("No detail view or close button")
+            return
+        }
+        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
     }
 
     @objc private func close() {
         dismiss(animated: true, completion: nil)
     }
 
-}
-
-private func createCloseButton(with text: String) -> UIButton {
-    let button = UIButton(type: .custom)
-    button.layer.cornerRadius = 10
-    button.contentEdgeInsets = UIEdgeInsets(top: 2, left: 6, bottom: 2, right: 6)
-    button.translatesAutoresizingMaskIntoConstraints = false
-    button.setTitle(text, for: .normal)
-    button.backgroundColor = .gray
-    return button
 }

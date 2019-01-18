@@ -6,4 +6,49 @@
 //  Copyright © 2019 Mateusz Matoszko. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+
+final class StoreTransition: NSObject, UIViewControllerTransitioningDelegate {
+
+    struct CellInformation {
+        let absoluteCellFrame: CGRect
+        weak var cell: UICollectionViewCell?
+    }
+
+    private let cellInformation: CellInformation
+
+    init(cellInformation: CellInformation) {
+        self.cellInformation = cellInformation
+        super.init()
+    }
+
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return ShowElementDetailsAnimator(cellInformation: cellInformation)
+    }
+
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return CloseElementDetailsAnimator(cellInformation: cellInformation)
+    }
+
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return nil
+    }
+
+}
+
+
+extension UIView {
+
+    @discardableResult
+    func embededInContainerView(view: UIView = UIView(), insets: UIEdgeInsets = .zero) -> UIView {
+        NSLayoutConstraint.activate([
+            self.leftAnchor.constraint(equalTo: view.leftAnchor, constant: insets.left),
+            self.rightAnchor.constraint(equalTo: view.rightAnchor, constant: insets.right),
+            self.topAnchor.constraint(equalTo: view.topAnchor, constant: insets.top),
+            self.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: insets.bottom)
+            ])
+        return view
+    }
+
+}

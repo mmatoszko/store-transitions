@@ -18,8 +18,11 @@ final class StoreTransition: NSObject, UIViewControllerTransitioningDelegate {
 
     private let cellInformation: CellInformation
 
-    init(cellInformation: CellInformation) {
+    weak var viewController: DetailViewController?
+
+    init(cellInformation: CellInformation, viewController: DetailViewController) {
         self.cellInformation = cellInformation
+        self.viewController = viewController
         super.init()
     }
 
@@ -28,13 +31,17 @@ final class StoreTransition: NSObject, UIViewControllerTransitioningDelegate {
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return CloseElementDetailsAnimator(cellInformation: cellInformation)
+        return CloseElementDetailsAnimator(cellInformation: cellInformation, dismissInteractor: viewController?.dismissInteractor)
     }
 
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return nil
-    }
 
+        guard let animator = animator as? CloseElementDetailsAnimator,
+            let interactionController = animator.dismissInteractor,
+            // We don't use interaction controller unless the animation is in progress
+            interactionController.interactionInProgress else { return nil }
+        return interactionController
+    }
 }
 
 

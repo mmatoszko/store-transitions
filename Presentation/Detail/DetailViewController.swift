@@ -13,9 +13,12 @@ final class DetailViewController: UIViewController {
 
     private let element: ListElement
 
+    var dismissInteractor: DismissInteractor?
+
     init(element: ListElement) {
         self.element = element
         super.init(nibName: nil, bundle: nil)
+        self.dismissInteractor = DismissInteractor(viewController: self)
     }
 
     override func loadView() {

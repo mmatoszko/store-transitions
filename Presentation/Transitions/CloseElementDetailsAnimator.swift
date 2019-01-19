@@ -13,7 +13,10 @@ final class CloseElementDetailsAnimator: NSObject, UIViewControllerAnimatedTrans
 
     private let cellInformation: StoreTransition.CellInformation
 
-    init(cellInformation: StoreTransition.CellInformation) {
+    let dismissInteractor: DismissInteractor?
+
+    init(cellInformation: StoreTransition.CellInformation, dismissInteractor: DismissInteractor?) {
+        self.dismissInteractor = dismissInteractor
         self.cellInformation = cellInformation
         super.init()
     }

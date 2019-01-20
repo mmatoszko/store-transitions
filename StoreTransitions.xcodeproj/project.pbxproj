@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D83859FA21F4C020003480CC /* ZoomOutInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83859F921F4C020003480CC /* ZoomOutInteractor.swift */; };
 		D84B9A4821F1F93900135850 /* ShowElementDetailsTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84B9A4721F1F93900135850 /* ShowElementDetailsTransition.swift */; };
 		D84B9A4A21F2203C00135850 /* DismissInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84B9A4921F2203C00135850 /* DismissInteractor.swift */; };
 		D84E533121ED3DC6007E11F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84E533021ED3DC6007E11F3 /* AppDelegate.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D83859F921F4C020003480CC /* ZoomOutInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomOutInteractor.swift; sourceTree = "<group>"; };
 		D84B9A4721F1F93900135850 /* ShowElementDetailsTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowElementDetailsTransition.swift; sourceTree = "<group>"; };
 		D84B9A4921F2203C00135850 /* DismissInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissInteractor.swift; sourceTree = "<group>"; };
 		D84E532D21ED3DC6007E11F3 /* StoreTransitions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreTransitions.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +156,7 @@
 				D84B9A4721F1F93900135850 /* ShowElementDetailsTransition.swift */,
 				D84E536621EE5127007E11F3 /* CloseElementDetailsAnimator.swift */,
 				D84B9A4921F2203C00135850 /* DismissInteractor.swift */,
+				D83859F921F4C020003480CC /* ZoomOutInteractor.swift */,
 			);
 			path = Transitions;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				D84B9A4A21F2203C00135850 /* DismissInteractor.swift in Sources */,
 				D84E535421EDFE79007E11F3 /* ListCollectionView.swift in Sources */,
 				D84E535821EE0097007E11F3 /* ListDelegate.swift in Sources */,
+				D83859FA21F4C020003480CC /* ZoomOutInteractor.swift in Sources */,
 				D84E536721EE5127007E11F3 /* CloseElementDetailsAnimator.swift in Sources */,
 				D84E535221EDFE5E007E11F3 /* ListViewController.swift in Sources */,
 				D84E535E21EE2362007E11F3 /* DetailViewController.swift in Sources */,

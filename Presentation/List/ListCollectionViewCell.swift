@@ -45,7 +45,7 @@ final class ListCollectionViewCell: UICollectionViewCell {
     }
 
     func render(element: ListElement) {
-        backgroundColor = .blue
+        backgroundColor = element.color
         layer.cornerRadius = cellCornerRadius
         layer.showShadowForCell()
         nameLabel.text = element.title
@@ -74,4 +74,5 @@ struct ListElement {
     let title: String
     let subtitle: String
     let description: String
+    let color: UIColor
 }

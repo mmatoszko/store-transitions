@@ -73,9 +73,9 @@ class ListViewController: UIViewController {
 
     private func showData(in collectionView: ListCollectionView) {
         let elements: [ListElement] = [
-            ListElement(imageName: "", title: "", subtitle: "", description: ""),
-            ListElement(imageName: "", title: "", subtitle: "", description: ""),
-            ListElement(imageName: "", title: "", subtitle: "", description: ""),
+            ListElement(imageName: "", title: "", subtitle: "", description: "", color: .yellow),
+            ListElement(imageName: "", title: "", subtitle: "", description: "", color: .green),
+            ListElement(imageName: "", title: "", subtitle: "", description: "", color: .blue),
         ]
         showElements(elements: elements, in: collectionView)
     }
@@ -87,7 +87,7 @@ class ListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
+        view.backgroundColor = .magenta
     }
 
 }

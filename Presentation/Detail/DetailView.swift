@@ -15,7 +15,6 @@ final class DetailView: UIView {
 
     init() {
         super.init(frame: .zero)
-        backgroundColor = .blue
         addCloseButton()
     }
 

@@ -22,6 +22,7 @@ final class DetailViewController: UIViewController, ZoomOutDelegate {
 
     override func loadView() {
         view = DetailView()
+        view.backgroundColor = element.color
     }
 
     @available(*, unavailable)

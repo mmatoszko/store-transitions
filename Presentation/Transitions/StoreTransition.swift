@@ -31,17 +31,9 @@ final class StoreTransition: NSObject, UIViewControllerTransitioningDelegate {
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return CloseElementDetailsAnimator(cellInformation: cellInformation, dismissInteractor: viewController?.dismissInteractor)
+        return CloseElementDetailsAnimator(cellInformation: cellInformation)
     }
 
-    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-
-        guard let animator = animator as? CloseElementDetailsAnimator,
-            let interactionController = animator.dismissInteractor,
-            // We don't use interaction controller unless the animation is in progress
-            interactionController.interactionInProgress else { return nil }
-        return interactionController
-    }
 }
 
 

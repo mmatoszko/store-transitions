@@ -18,11 +18,8 @@ final class StoreTransition: NSObject, UIViewControllerTransitioningDelegate {
 
     private let cellInformation: CellInformation
 
-    weak var viewController: DetailViewController?
-
-    init(cellInformation: CellInformation, viewController: DetailViewController) {
+    init(cellInformation: CellInformation) {
         self.cellInformation = cellInformation
-        self.viewController = viewController
         super.init()
     }
 

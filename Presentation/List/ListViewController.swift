@@ -61,7 +61,7 @@ class ListViewController: UIViewController {
         let viewController = DetailViewController(element: element)
 
         let cellInformation = StoreTransition.CellInformation(absoluteCellFrame: absoluteFrame, cell: cell)
-        let transition = StoreTransition(cellInformation: cellInformation, viewController: viewController)
+        let transition = StoreTransition(cellInformation: cellInformation)
         viewController.transitioningDelegate = transition
 
         viewController.modalPresentationStyle = .custom

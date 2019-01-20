@@ -13,6 +13,7 @@ protocol ZoomOutDelegate: class {
     func didZoomOut()
 }
 
+/** Manages the zoom out process which happens before we use the `UIViewControllerTransitioningDelegate`. */
 final class ZoomOutInteractor {
 
     weak var zoomOutDelegate: ZoomOutDelegate?
@@ -76,6 +77,7 @@ final class ZoomOutInteractor {
 
         let currentLocation = gesture.location(in: nil)
         let screenHeight = UIScreen.main.bounds.height
+        /** Screen needs to be dragged down by 1/4 in order to be dismissed. */
         let requiredMove = screenHeight / 4
         return (currentLocation.y - startingPoint.y) / requiredMove
     }
@@ -93,7 +95,7 @@ final class ZoomOutInteractor {
 
     /** Returns an interactive dismissal animator. Creates a new one in case it doesn't exist. */
     private func interactiveDismissalAnimator(for view: UIView, progress: CGFloat) -> UIViewPropertyAnimator {
-        let targetShrinkScale: CGFloat = 0.8
+        let targetShrinkScale: CGFloat = 0.85
         let targetCornerRadius: CGFloat = cellCornerRadius
 
         guard let animator = dismissalAnimator else {

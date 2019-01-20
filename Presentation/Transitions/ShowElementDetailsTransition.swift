@@ -13,16 +13,18 @@ final class ShowElementDetailsTransition {
 
     let animator: UIViewPropertyAnimator
 
-    init(params: StoreTransition.CellInformation,
+    init?(params: StoreTransition.CellInformation,
          transitionContext: UIViewControllerContextTransitioning,
          baseAnimator: UIViewPropertyAnimator) {
         let container = transitionContext.containerView
-
-        let detailView = transitionContext.view(forKey: .to)!
+        guard let detailView = transitionContext.view(forKey: .to) else {
+            assertionFailure("transitioning context is missing destination view")
+            return nil
+        }
         detailView.translatesAutoresizingMaskIntoConstraints = false
         let initialFrame = params.absoluteCellFrame
 
-        // Temporary container view for animation
+        // Temporary container view for making the bounce up animation in `animateContainerBouncingUp` possible.
         let animatedContainerView = UIView()
         animatedContainerView.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(animatedContainerView)
@@ -34,8 +36,8 @@ final class ShowElementDetailsTransition {
         ]
         NSLayoutConstraint.activate(animatedContainerConstraints)
 
-        let verticalConstraint = animatedContainerView.topAnchor.constraint(equalTo: container.topAnchor, constant: initialFrame.minY)
-        verticalConstraint.isActive = true
+        let containerTopConstraint = animatedContainerView.topAnchor.constraint(equalTo: container.topAnchor, constant: initialFrame.minY)
+        containerTopConstraint.isActive = true
 
         animatedContainerView.addSubview(detailView)
 
@@ -56,11 +58,10 @@ final class ShowElementDetailsTransition {
         params.cell?.isHidden = true
         params.cell?.transform = .identity
 
-
         container.layoutIfNeeded()
 
         func animateContainerBouncingUp() {
-            verticalConstraint.constant = 0
+            containerTopConstraint.constant = 0
             container.layoutIfNeeded()
         }
 
@@ -76,7 +77,7 @@ final class ShowElementDetailsTransition {
             animatedContainerView.removeConstraints(animatedContainerView.constraints)
             animatedContainerView.removeFromSuperview()
 
-            // Re-add to the top
+            // Add the detail view
             container.addSubview(detailView)
 
             detailView.removeConstraints([widthConstraint, heightConstraint])
@@ -88,13 +89,13 @@ final class ShowElementDetailsTransition {
 
         baseAnimator.addAnimations {
             animateContainerBouncingUp()
-            let expandingAnimation = UIViewPropertyAnimator(duration: baseAnimator.duration * 0.6, curve: .linear) {
+            let expandingAnimation = UIViewPropertyAnimator(duration: baseAnimator.duration * 0.5, curve: .linear) {
                 fillUpContainerWithDetailView()
             }
             expandingAnimation.startAnimation()
         }
 
-        baseAnimator.addCompletion { (_) in
+        baseAnimator.addCompletion { _ in
             finalizeAnimation()
         }
 

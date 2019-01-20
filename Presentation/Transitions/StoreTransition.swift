@@ -36,15 +36,13 @@ final class StoreTransition: NSObject, UIViewControllerTransitioningDelegate {
 
 extension UIView {
 
-    @discardableResult
-    func embededInContainerView(view: UIView = UIView(), insets: UIEdgeInsets = .zero) -> UIView {
+    func constraint(in container: UIView, insets: UIEdgeInsets = .zero) {
         NSLayoutConstraint.activate([
-            self.leftAnchor.constraint(equalTo: view.leftAnchor, constant: insets.left),
-            self.rightAnchor.constraint(equalTo: view.rightAnchor, constant: insets.right),
-            self.topAnchor.constraint(equalTo: view.topAnchor, constant: insets.top),
-            self.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: insets.bottom)
+            self.leftAnchor.constraint(equalTo: container.leftAnchor, constant: insets.left),
+            self.rightAnchor.constraint(equalTo: container.rightAnchor, constant: insets.right),
+            self.topAnchor.constraint(equalTo: container.topAnchor, constant: insets.top),
+            self.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: insets.bottom)
             ])
-        return view
     }
 
 }

@@ -40,7 +40,7 @@ final class CloseElementDetailsAnimator: NSObject, UIViewControllerAnimatedTrans
         animatedContainerView.addSubview(detailView)
 
         // Element fills inside animated container view
-        detailView.embededInContainerView(view: animatedContainerView)
+        detailView.constraint(in: animatedContainerView)
 
         animatedContainerView.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true
         let animatedContainerTopConstraint = animatedContainerView.topAnchor.constraint(equalTo: container.topAnchor, constant: 0)
@@ -73,7 +73,7 @@ final class CloseElementDetailsAnimator: NSObject, UIViewControllerAnimatedTrans
                 container.removeConstraints(container.constraints)
 
                 container.addSubview(detailView)
-                detailView.embededInContainerView(view: container)
+                detailView.constraint(in: container)
             }
             transitionContext.completeTransition(success)
         }

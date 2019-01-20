@@ -80,7 +80,7 @@ final class ShowElementDetailsTransition {
             container.addSubview(detailView)
 
             detailView.removeConstraints([widthConstraint, heightConstraint])
-            detailView.embededInContainerView(view: container)
+            detailView.constraint(in: container)
 
             let success = !transitionContext.transitionWasCancelled
             transitionContext.completeTransition(success)

@@ -208,9 +208,11 @@
 				TargetAttributes = {
 					D84E532C21ED3DC6007E11F3 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1150;
 					};
 					D84E534021ED3DC7007E11F3 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1150;
 						TestTargetID = D84E532C21ED3DC6007E11F3;
 					};
 				};
@@ -432,7 +434,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.matoszko.StoreTransitions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -449,7 +451,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.matoszko.StoreTransitions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -468,7 +470,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.matoszko.StoreTransitionsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoreTransitions.app/StoreTransitions";
 			};
@@ -488,7 +490,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.matoszko.StoreTransitionsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoreTransitions.app/StoreTransitions";
 			};

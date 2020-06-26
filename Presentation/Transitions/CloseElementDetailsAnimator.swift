@@ -25,8 +25,7 @@ final class CloseElementDetailsAnimator: NSObject, UIViewControllerAnimatedTrans
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let container = transitionContext.containerView
-        guard let detailViewController = transitionContext.viewController(forKey: .from) as? DetailViewController,
-            let detailView = transitionContext.view(forKey: .from) else {
+        guard let detailView = transitionContext.view(forKey: .from) else {
                 return
         }
         detailView.translatesAutoresizingMaskIntoConstraints = false

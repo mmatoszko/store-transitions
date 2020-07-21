@@ -18,7 +18,12 @@ final class StoreTransition: NSObject, UIViewControllerTransitioningDelegate {
 
     private let cellInformation: CellInformation
 
-    init(cellInformation: CellInformation) {
+    convenience init(absoluteCellFrame: CGRect, cell: UICollectionViewCell) {
+        let cellInformation = CellInformation(absoluteCellFrame: absoluteCellFrame, cell: cell)
+        self.init(cellInformation: cellInformation)
+    }
+
+    private init(cellInformation: CellInformation) {
         self.cellInformation = cellInformation
         super.init()
     }

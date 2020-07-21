@@ -9,7 +9,7 @@
 import UIKit
 
 
-final class DetailViewController: UIViewController, ZoomOutDelegate {
+final class DetailViewController: UIViewController {
 
     private let element: ListElement
 
@@ -33,7 +33,7 @@ final class DetailViewController: UIViewController, ZoomOutDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         addCloseButtonAction()
-        enableZoomOutInteractor()
+        configureZoomOutInteractor()
     }
 
     private func addCloseButtonAction() {
@@ -45,19 +45,14 @@ final class DetailViewController: UIViewController, ZoomOutDelegate {
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
     }
 
-    private func enableZoomOutInteractor() {
-        zoomOutInteractor.zoomOutDelegate = self
+    private func configureZoomOutInteractor() {
+        zoomOutInteractor.didZoomOut = { [weak self] in
+            self?.dismiss(animated: true)
+        }
         view.addGestureRecognizer(zoomOutInteractor.panGesture)
     }
 
     @objc private func close() {
         dismiss(animated: true, completion: nil)
     }
-
-    // MARK: - ZoomOutDelegate
-
-    func didZoomOut() {
-        dismiss(animated: true)
-    }
-
 }

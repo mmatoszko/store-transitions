@@ -9,14 +9,12 @@
 import UIKit
 
 
-protocol ZoomOutDelegate: class {
-    func didZoomOut()
-}
-
 /** Manages the zoom out process which happens before we use the `UIViewControllerTransitioningDelegate`. */
 final class ZoomOutInteractor {
 
-    weak var zoomOutDelegate: ZoomOutDelegate?
+    typealias ZoomOutAction = () -> Void
+
+    var didZoomOut: ZoomOutAction = {}
 
     private var interactiveStartingPoint: CGPoint?
 
@@ -46,7 +44,7 @@ final class ZoomOutInteractor {
             if progress >= 1.0 {
                 dismissalAnimator?.stopAnimation(false)
                 dismissalAnimator?.addCompletion { [weak self] _ in
-                    self?.zoomOutDelegate?.didZoomOut()
+                    self?.didZoomOut()
                 }
                 dismissalAnimator?.finishAnimation(at: .end)
             }

@@ -22,17 +22,14 @@ final class ZoomOutInteractor {
 
     private var dismissalAnimator: UIViewPropertyAnimator?
 
+    let panGesture: UIPanGestureRecognizer
+
     init() {
+        self.panGesture = createPanGesture()
         panGesture.addTarget(self, action: #selector(handleDismissalPan(gesture:)))
     }
 
-    lazy var panGesture: UIPanGestureRecognizer = {
-        let gesture = UIPanGestureRecognizer()
-        gesture.maximumNumberOfTouches = 1
-        return gesture
-    }()
-
-    @objc func handleDismissalPan(gesture: UIPanGestureRecognizer) {
+    @objc private func handleDismissalPan(gesture: UIPanGestureRecognizer) {
         guard let zoomedOutView = gesture.view else { return }
 
         let progress = moveProgress(for: gesture)
@@ -125,4 +122,10 @@ final class ZoomOutInteractor {
         dismissalAnimator = nil
     }
 
+}
+
+private func createPanGesture() -> UIPanGestureRecognizer {
+    let gesture = UIPanGestureRecognizer()
+    gesture.maximumNumberOfTouches = 1
+    return gesture
 }

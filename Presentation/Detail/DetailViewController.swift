@@ -13,7 +13,7 @@ final class DetailViewController: UIViewController {
 
     private let element: ListElement
 
-    let zoomOutInteractor = ZoomOutInteractor()
+    private let zoomOutInteractor = ZoomOutInteractor()
 
     init(element: ListElement) {
         self.element = element

@@ -9,30 +9,25 @@
 import UIKit
 
 
-protocol ZoomOutDelegate: class {
-    func didZoomOut()
-}
-
 /** Manages the zoom out process which happens before we use the `UIViewControllerTransitioningDelegate`. */
 final class ZoomOutInteractor {
 
-    weak var zoomOutDelegate: ZoomOutDelegate?
+    typealias ZoomOutAction = () -> Void
+
+    var didZoomOut: ZoomOutAction = {}
 
     private var interactiveStartingPoint: CGPoint?
 
     private var dismissalAnimator: UIViewPropertyAnimator?
 
+    let panGesture: UIPanGestureRecognizer
+
     init() {
+        self.panGesture = createPanGesture()
         panGesture.addTarget(self, action: #selector(handleDismissalPan(gesture:)))
     }
 
-    lazy var panGesture: UIPanGestureRecognizer = {
-        let gesture = UIPanGestureRecognizer()
-        gesture.maximumNumberOfTouches = 1
-        return gesture
-    }()
-
-    @objc func handleDismissalPan(gesture: UIPanGestureRecognizer) {
+    @objc private func handleDismissalPan(gesture: UIPanGestureRecognizer) {
         guard let zoomedOutView = gesture.view else { return }
 
         let progress = moveProgress(for: gesture)
@@ -49,7 +44,7 @@ final class ZoomOutInteractor {
             if progress >= 1.0 {
                 dismissalAnimator?.stopAnimation(false)
                 dismissalAnimator?.addCompletion { [weak self] _ in
-                    self?.zoomOutDelegate?.didZoomOut()
+                    self?.didZoomOut()
                 }
                 dismissalAnimator?.finishAnimation(at: .end)
             }
@@ -125,4 +120,10 @@ final class ZoomOutInteractor {
         dismissalAnimator = nil
     }
 
+}
+
+private func createPanGesture() -> UIPanGestureRecognizer {
+    let gesture = UIPanGestureRecognizer()
+    gesture.maximumNumberOfTouches = 1
+    return gesture
 }

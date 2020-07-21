@@ -79,13 +79,12 @@ final class ZoomOutInteractor {
 
     /** Returns a starting point for the animation. */
     private func startingPointFor(gesture: UIPanGestureRecognizer) -> CGPoint {
-        if let point = interactiveStartingPoint {
-            return point
-        } else {
+        guard let point = interactiveStartingPoint else {
             let startingPoint = gesture.location(in: nil)
             interactiveStartingPoint = startingPoint
             return startingPoint
         }
+        return point
     }
 
     /** Returns an interactive dismissal animator. Creates a new one in case it doesn't exist. */

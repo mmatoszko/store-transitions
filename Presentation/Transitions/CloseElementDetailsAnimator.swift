@@ -66,7 +66,7 @@ final class CloseElementDetailsAnimator: NSObject, UIViewControllerAnimatedTrans
             animatedContainerView.removeFromSuperview()
             if success {
                 detailView.removeFromSuperview()
-                self.cellInformation.cell?.isHidden = false
+                self.cellInformation.makeVisible(true)
             } else {
                 // Remove temporary fixes if not success!
                 container.removeConstraints(container.constraints)

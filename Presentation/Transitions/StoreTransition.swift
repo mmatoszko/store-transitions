@@ -13,13 +13,18 @@ final class StoreTransition: NSObject, UIViewControllerTransitioningDelegate {
 
     struct CellInformation {
         let absoluteCellFrame: CGRect
-        weak var cell: UICollectionViewCell?
+        var makeVisible: (Bool) -> Void
     }
 
     private let cellInformation: CellInformation
 
     convenience init(absoluteCellFrame: CGRect, cell: UICollectionViewCell) {
-        let cellInformation = CellInformation(absoluteCellFrame: absoluteCellFrame, cell: cell)
+        let cellInformation = CellInformation(
+            absoluteCellFrame: absoluteCellFrame,
+            makeVisible: { [weak cell] visible in
+                cell?.isHidden = !visible
+            }
+        )
         self.init(cellInformation: cellInformation)
     }
 

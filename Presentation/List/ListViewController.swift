@@ -49,10 +49,8 @@ class ListViewController: UIViewController {
     }
 
     private func showElement(at indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? ListCollectionViewCell,
-            let currentCellFrame = cell.layer.presentation()?.frame,
-            let absoluteFrame = cell.superview?.convert(currentCellFrame, to: nil) else {
-                return
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ListCollectionViewCell else {
+            return
         }
 
         guard let element = dataSource?.elements[indexPath.row] else {
@@ -60,7 +58,7 @@ class ListViewController: UIViewController {
         }
         let viewController = DetailViewController(element: element)
 
-        let transition = StoreTransition(absoluteCellFrame: absoluteFrame, cell: cell)
+        let transition = StoreTransition(cell: cell)
         viewController.transitioningDelegate = transition
 
         viewController.modalPresentationStyle = .custom

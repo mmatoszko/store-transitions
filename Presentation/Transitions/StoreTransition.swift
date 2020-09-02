@@ -18,7 +18,13 @@ final class StoreTransition: NSObject, UIViewControllerTransitioningDelegate {
 
     private let cellInformation: CellInformation
 
-    convenience init(absoluteCellFrame: CGRect, cell: UICollectionViewCell) {
+    convenience init?(cell: UICollectionViewCell) {
+        guard
+            let currentCellFrame = cell.layer.presentation()?.frame,
+            let absoluteCellFrame = cell.superview?.convert(currentCellFrame, to: nil) else {
+                assertionFailure("Can't get cell's absolute frame")
+                return nil
+        }
         let cellInformation = CellInformation(
             absoluteCellFrame: absoluteCellFrame,
             makeVisible: { [weak cell] visible in

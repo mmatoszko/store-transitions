@@ -55,8 +55,7 @@ final class ShowElementDetailsTransition {
         detailView.layer.cornerRadius = cellCornerRadius
 
         // Prepare cell
-        params.cell?.isHidden = true
-        params.cell?.transform = .identity
+        params.makeVisible(false)
 
         container.layoutIfNeeded()
 

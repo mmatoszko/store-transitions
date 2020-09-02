@@ -19,18 +19,8 @@ final class StoreTransition: NSObject, UIViewControllerTransitioningDelegate {
     private let cellInformation: CellInformation
 
     convenience init?(cell: UICollectionViewCell) {
-        guard
-            let currentCellFrame = cell.layer.presentation()?.frame,
-            let absoluteCellFrame = cell.superview?.convert(currentCellFrame, to: nil) else {
-                assertionFailure("Can't get cell's absolute frame")
-                return nil
-        }
-        let cellInformation = CellInformation(
-            absoluteCellFrame: absoluteCellFrame,
-            makeVisible: { [weak cell] visible in
-                cell?.isHidden = !visible
-            }
-        )
+        guard let cellInformation = cellTransitionInformation(for: cell) else { return nil }
+
         self.init(cellInformation: cellInformation)
     }
 
@@ -46,9 +36,22 @@ final class StoreTransition: NSObject, UIViewControllerTransitioningDelegate {
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return CloseElementDetailsAnimator(cellInformation: cellInformation)
     }
-
 }
 
+private func cellTransitionInformation(for cell: UICollectionViewCell) -> StoreTransition.CellInformation? {
+    guard
+        let currentCellFrame = cell.layer.presentation()?.frame,
+        let absoluteCellFrame = cell.superview?.convert(currentCellFrame, to: nil) else {
+            assertionFailure("Can't get cell's absolute frame")
+            return nil
+    }
+    return StoreTransition.CellInformation(
+        absoluteCellFrame: absoluteCellFrame,
+        makeVisible: { [weak cell] visible in
+            cell?.isHidden = !visible
+        }
+    )
+}
 
 extension UIView {
 

@@ -13,10 +13,9 @@ jobs:
     strategy:
       matrix:
         xcode:
-          - 11.5
-          - 11.6
-          - 12
           - 12.4
+          - 12.5
+          - 12.5.1
 
     steps:
     - uses: actions/checkout@master
